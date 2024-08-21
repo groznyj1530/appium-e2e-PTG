@@ -123,9 +123,9 @@ public class Messages extends BasePage{
         MobileElement messageEnter = (MobileElement) wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//android.widget.EditText[@text='Message']")));
         String inputText = messageEnter.getText();
         System.out.println(inputText);
-            if (inputText.equals(inputText)) {
-                System.out.println("Черновика нет - Ок ");
-            }
+        if (inputText.equals(inputText)) {
+            System.out.println("Черновика нет - Ок ");
+        }
         driver.navigate().back();
     }
     public void checkDraftAppear(String message) throws InterruptedException {
@@ -143,4 +143,3 @@ public class Messages extends BasePage{
 
 
 }
-

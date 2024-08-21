@@ -1,6 +1,5 @@
 package android.pages;
 
-import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
@@ -14,7 +13,6 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-
 import java.util.List;
 public class FolderPage extends BasePage{
     public FolderPage(AppiumDriver driver) {
@@ -91,6 +89,7 @@ public class FolderPage extends BasePage{
         TouchAction action = new TouchAction(driver);
         action.tap(PointOption.point(x1,y)).perform(); //x=1240, y =289
         Thread.sleep(2000);
+
     }
     public void checkDeletingChatAllChecked() throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, 10);

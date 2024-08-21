@@ -62,9 +62,6 @@ public class PartisanSettingsPage extends BasePage {
     @AndroidFindBy(xpath = "//android.widget.TextView[@text='Reset']")
     private static MobileElement resetAvatarBtn;
 
-    @AndroidFindBy(xpath = "//android.widget.TextView[@text='Reset']")
-    private static MobileElement resetButton;
-
     public void deactivateShowVersion() throws InterruptedException {
         if (switchShowVersion.getAttribute("checked").equals("true")) {
             switchShowVersion.click();
@@ -98,7 +95,7 @@ public class PartisanSettingsPage extends BasePage {
         header.goBack();
     }
 
-//    public void deactivateShowAvatar() throws InterruptedException {
+    //    public void deactivateShowAvatar() throws InterruptedException {
 //        if (switchAvatarDisabling.getAttribute("checked").equals("true")) {
 //            switchAvatarDisabling.click();
 //            System.out.println("Переключатель включен, отключаем");
@@ -108,21 +105,13 @@ public class PartisanSettingsPage extends BasePage {
 //        HeaderSection header = new HeaderSection(driver);
 //        header.goBack();
 //    }
-    public void deactivateShowAvatar()   throws InterruptedException {
-        if (switchAvatarDisabling.getAttribute("checked").equals("true")) {
-            switchAvatarDisabling.click();
-            Thread.sleep(3000);
-            try {
-                resetButton.click();
-            } catch (Exception e) {
-                System.out.println("Элемент 'Reset' не найден");
-            }
-            System.out.println("Переключатель включен, отключаем");
-            Thread.sleep(3000);
-            HeaderSection header = new HeaderSection(driver);
-            header.goBack();
-
-               /* WebDriverWait wait = new WebDriverWait(driver, 10);
+    public void deactivateShowAvatar() throws InterruptedException {
+        try {
+            if (switchAvatarDisabling.getAttribute("checked").equals("true")) {
+                switchAvatarDisabling.click();
+                System.out.println("Переключатель включен, отключаем");
+                WebDriverWait wait = new WebDriverWait(driver, 15);
+//                resetAvatar.click();
                 MobileElement resetAvatar = (MobileElement) wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//android.widget.TextView[@text='Reset' and @index = '2']")));
                 int x = resetAvatar.getCenter().getX();
                 int y = resetAvatar.getCenter().getY();
@@ -141,10 +130,8 @@ public class PartisanSettingsPage extends BasePage {
         } finally {
             HeaderSection header = new HeaderSection(driver);
             header.goBack();
-        }*/
         }
     }
-
     public void activateShowAvatar() throws InterruptedException{
         if (!switchAvatarDisabling.getAttribute("checked").equals("true")) {
             switchAvatarDisabling.click();
@@ -278,7 +265,7 @@ public class PartisanSettingsPage extends BasePage {
                 if (switchReactToMessages.getAttribute("checked").equals("true")) {
                     switchReactToMessages.click();
                     System.out.println("Переключатель включен, отключаем");
-                    }
+                }
             } catch (Exception e) {
                 Utils.scroll(driver);
             }
@@ -297,7 +284,7 @@ public class PartisanSettingsPage extends BasePage {
                 if (!switchReactToMessages.getAttribute("checked").equals("true")) {
                     switchReactToMessages.click();
                     System.out.println("Переключатель отключен, включаем");
-                    }
+                }
             } catch (Exception e) {
                 Utils.scroll(driver);
             }
@@ -422,5 +409,128 @@ public class PartisanSettingsPage extends BasePage {
         HeaderSection header = new HeaderSection(driver);
         header.goBack();
     }
+
+    public void selectHideAndClearCacheActionOnScreenLock() throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        boolean elFound = false;
+
+        while (!elFound) {
+            try {
+                MobileElement actionOnScreenLock = (MobileElement) wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//android.widget.TextView[@text = 'Action On Screen Lock' and @index = '0']")));
+                elFound = true;
+                actionOnScreenLock.click();
+                MobileElement hide = (MobileElement) wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//android.widget.RadioButton[@index = '1']")));
+                MobileElement ok = (MobileElement) wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//android.widget.TextView[@text = 'OK']")));
+                if (!hide.getAttribute("checked").equals("true")) {
+                    hide.click();
+                    System.out.println("Выбираем: Свернуть и очистить кэш");
+                    ok.click();
+                } else {
+                    System.out.println("Выбрано: Свернуть и очистить кэш");
+                    ok.click();
+                }
+            } catch (Exception e) {
+                Utils.scroll(driver);
+            }
+        }
+        HeaderSection header = new HeaderSection(driver);
+        header.goBack();
+    }
+
+    public void selectCloseAndClearCacheActionOnScreenLock() throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        boolean elFound = false;
+
+        while (!elFound) {
+            try {
+                MobileElement actionOnScreenLock = (MobileElement) wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//android.widget.TextView[@text = 'Action On Screen Lock' and @index = '0']")));
+                elFound = true;
+                actionOnScreenLock.click();
+                MobileElement hide = (MobileElement) wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//android.widget.RadioButton[@index = '2']")));
+                MobileElement ok = (MobileElement) wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//android.widget.TextView[@text = 'OK']")));
+                if (!hide.getAttribute("checked").equals("true")) {
+                    hide.click();
+                    System.out.println("Выбираем: Закрыть и очистить кэш");
+                    ok.click();
+                } else {
+                    System.out.println("Выбрано: Закрыть и очистить кэш");
+                    ok.click();
+                }
+            } catch (Exception e) {
+                Utils.scroll(driver);
+            }
+        }
+        HeaderSection header = new HeaderSection(driver);
+        header.goBack();
+    }
+
+    public void selectDoNothingActionOnScreenLock() throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        boolean elFound = false;
+
+        while (!elFound) {
+            try {
+                MobileElement actionOnScreenLock = (MobileElement) wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//android.widget.TextView[@text = 'Action On Screen Lock' and @index = '0']")));
+                elFound = true;
+                actionOnScreenLock.click();
+                MobileElement hide = (MobileElement) wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//android.widget.RadioButton[@index = '0']")));
+                MobileElement ok = (MobileElement) wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//android.widget.TextView[@text = 'OK']")));
+                if (!hide.getAttribute("checked").equals("true")) {
+                    hide.click();
+                    System.out.println("Выбираем: Ничего");
+                    ok.click();
+                } else {
+                    System.out.println("Выбрано: Ничего");
+                    ok.click();
+                }
+            } catch (Exception e) {
+                Utils.scroll(driver);
+            }
+        }
+        HeaderSection header = new HeaderSection(driver);
+        header.goBack();
+    }
+
+    public void activateGooglePlayAppIcons() throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        boolean switchFound = false;
+
+        while (!switchFound) {
+            try {
+                MobileElement switchElement = (MobileElement) wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//android.widget.Switch[@content-desc=\"Google Play App Icons\"]")));
+                switchFound = true;
+                if (!switchGooglePlayIcons.getAttribute("checked").equals("true")) {
+                    switchGooglePlayIcons.click();
+                    System.out.println("Переключатель отключен, включаем");
+                }
+            } catch (Exception e) {
+                Utils.scroll(driver);
+            }
+        }
+        Thread.sleep(2000);
+//        HeaderSection header = new HeaderSection(driver);
+//        header.goBack();
+    }
+    public void deactivateGooglePlayAppIcons() throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        boolean switchFound = false;
+
+        while (!switchFound) {
+            try {
+                MobileElement switchElement = (MobileElement) wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//android.widget.Switch[@content-desc=\"Google Play App Icons\"]")));
+                switchFound = true;
+                if (switchGooglePlayIcons.getAttribute("checked").equals("true")) {
+                    switchGooglePlayIcons.click();
+                    System.out.println("Переключатель включен, отключаем");
+                }
+            } catch (Exception e) {
+                Utils.scroll(driver);
+            }
+        }
+        Thread.sleep(2000);
+//        HeaderSection header = new HeaderSection(driver);
+//        header.goBack();
+    }
+
 
 }
