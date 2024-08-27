@@ -62,6 +62,9 @@ public class PartisanSettingsPage extends BasePage {
     @AndroidFindBy(xpath = "//android.widget.TextView[@text='Reset']")
     private static MobileElement resetAvatarBtn;
 
+    @AndroidFindBy(xpath = "//android.widget.TextView[@text='Reset']")
+    private static MobileElement resetButton;
+
     public void deactivateShowVersion() throws InterruptedException {
         if (switchShowVersion.getAttribute("checked").equals("true")) {
             switchShowVersion.click();
@@ -105,14 +108,21 @@ public class PartisanSettingsPage extends BasePage {
 //        HeaderSection header = new HeaderSection(driver);
 //        header.goBack();
 //    }
-    public void deactivateShowAvatar() {
-        try {
-            if (switchAvatarDisabling.getAttribute("checked").equals("true")) {
-                switchAvatarDisabling.click();
-                System.out.println("Переключатель включен, отключаем");
-                Thread.sleep(2000);
+    public void deactivateShowAvatar()   throws InterruptedException {
+        if (switchAvatarDisabling.getAttribute("checked").equals("true")) {
+            switchAvatarDisabling.click();
+            Thread.sleep(3000);
+            try {
+                resetButton.click();
+            } catch (Exception e) {
+                System.out.println("Элемент 'Reset' не найден");
+            }
+            System.out.println("Переключатель включен, отключаем");
+            Thread.sleep(3000);
+            HeaderSection header = new HeaderSection(driver);
+            header.goBack();
 
-                WebDriverWait wait = new WebDriverWait(driver, 10);
+               /* WebDriverWait wait = new WebDriverWait(driver, 10);
                 MobileElement resetAvatar = (MobileElement) wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//android.widget.TextView[@text='Reset' and @index = '2']")));
                 int x = resetAvatar.getCenter().getX();
                 int y = resetAvatar.getCenter().getY();
@@ -131,8 +141,10 @@ public class PartisanSettingsPage extends BasePage {
         } finally {
             HeaderSection header = new HeaderSection(driver);
             header.goBack();
+        }*/
         }
     }
+
     public void activateShowAvatar() throws InterruptedException{
         if (!switchAvatarDisabling.getAttribute("checked").equals("true")) {
             switchAvatarDisabling.click();
